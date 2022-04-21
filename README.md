@@ -18,7 +18,7 @@ Este es un espacio para conocer a cerca del SDK Android de Become para la valida
 			targetCompatibility = 1.8
 		     }
 		}
-		
+				
 2. El archivo build.grade debe contar con una referencia al repositorio:
 	
 		maven { url 'https://jitpack.io' }
@@ -37,7 +37,21 @@ Cómo primera medida es necesaria la implementacion de los siguientes módulos:
     implementation 'androidx.navigation:navigation-ui:2.3.0'
     implementation 'com.github.bumptech.glide:glide:4.10.0'
     implementation 'com.squareup.okhttp3:okhttp:4.2.2'
+    implementation('com.microblink:blinkid:5.16.0@aar') {
+        transitive = true
+    }
   
+### Agregar licencia requerida
+
+1. Agregar licencia en los assets del proyecto:
+
+<p align="center">
+  <img src="https://github.com/Becomedigital/become_ANDROID_SDK/blob/master/assets_key.png">
+</p>
+
+**El identificador del proyecto debe coincidir con la licencia asignada al cliente
+
+
 ### Implementación de la SDK Become
        
  1. Abra el archivo build.gradle dentro del directorio del módulo de su aplicación e incluya las siguientes dependencias en el archivo build.gradle de su aplicación:
@@ -48,7 +62,7 @@ Cómo primera medida es necesaria la implementacion de los siguientes módulos:
 		 
 		 implementation 'com.github.becomedigital:become_ANDROID_SDK_ADC:4.4.4'
 		 
- 3. Al realizar los pasos anteriores, debe sincronizar su proyecto con gradle.
+ 2. Al realizar los pasos anteriores, debe sincronizar su proyecto con gradle.
  
  ## Inicialización de la SDK
 En el método onCreate () de su clase de aplicación, inicialice Become utilizando el siguiente fragmento de código:
