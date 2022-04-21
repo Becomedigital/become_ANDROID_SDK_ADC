@@ -270,7 +270,7 @@ public class VideoRecorderFragment extends Fragment {
         initialSetups ( );
         final Animation animScale = AnimationUtils.loadAnimation (requireActivity ( ), R.anim.anim_scale);
 
-        countdownRecording = 8;
+        countdownRecording = 4;
         countdownToStart = 4;
         initCoundown ( );
         Glide.with (this)
@@ -291,7 +291,7 @@ public class VideoRecorderFragment extends Fragment {
                 recording = true;
             }
         }.start ( );
-        countDownTimerGeneral = new CountDownTimer (11000, 1000) {
+        countDownTimerGeneral = new CountDownTimer (7000, 1000) {
             public void onTick(long millisUntilFinished) {
                 //Log.d (TAG, "time: " + millisUntilFinished);
                 countdownToStart--;
