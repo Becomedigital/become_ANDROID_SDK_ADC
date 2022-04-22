@@ -51,9 +51,14 @@ Cómo primera medida es necesaria la implementacion de los siguientes módulos:
 
  2. El identificador del proyecto debe coincidir con la licencia asignada al cliente:
  
-<p align="center">
-  <img src="https://github.com/Becomedigital/become_ANDROID_SDK_ADC/blob/main/image1.png">
-</p>
+  defaultConfig {
+        applicationId "com.becomedigital.sdk.identity.becomedigitalsdkiv.mb"
+        minSdkVersion 21
+        targetSdkVersion 31
+        versionCode 1
+        versionName "1.1"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
 
 ### Implementación de la SDK Become
        
