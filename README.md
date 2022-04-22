@@ -46,13 +46,13 @@ Cómo primera medida es necesaria la implementacion de los siguientes módulos:
 1. Agregar licencia en los assets del proyecto:
 
 <p align="center">
-  <img src="https://github.com/Becomedigital/become_ANDROID_SDK/blob/master/assets_key.png">
+  <img src="https://github.com/Becomedigital/become_ANDROID_SDK_ADC/blob/master/assets_key.png">
 </p>
 
  2. El identificador del proyecto debe coincidir con la licencia asignada al cliente:
  
 <p align="center">
-  <img src="https://github.com/Becomedigital/become_ANDROID_SDK/blob/master/image1.png">
+  <img src="https://github.com/Becomedigital/become_ANDROID_SDK_ADC/blob/master/image1.png">
 </p>
 
 ### Implementación de la SDK Become
