@@ -49,7 +49,7 @@ Cómo primera medida es necesaria la implementacion de los siguientes módulos:
   <img src="https://github.com/Becomedigital/become_ANDROID_SDK_ADC/blob/main/assets_key.png">
 </p>
 
- 2. El **applicationId** del proyecto debe coincidir con la licencia asignada al cliente:
+ 2. El [`applicationId`](https://developer.android.com/studio/build/application-id?hl=es-419) del proyecto debe coincidir con la licencia asignada al cliente:
 
 ### Implementación de la SDK Become
        
