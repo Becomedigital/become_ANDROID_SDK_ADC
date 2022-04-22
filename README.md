@@ -49,7 +49,7 @@ Cómo primera medida es necesaria la implementacion de los siguientes módulos:
   <img src="https://github.com/Becomedigital/become_ANDROID_SDK/blob/master/assets_key.png">
 </p>
 
-2. El identificador del proyecto debe coincidir con la licencia asignada al cliente
+#### El identificador del proyecto debe coincidir con la licencia asignada al cliente
 
 
 ### Implementación de la SDK Become
