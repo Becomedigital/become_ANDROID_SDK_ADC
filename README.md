@@ -329,6 +329,7 @@ Esta sección se encarga de proporcionar el fragmento de código para la impleme
 * **Tecnologias**
 	
 	Android 5 en adelante
+	gradle-7.0.2
 	
 ## Vídeo de integración del SDK Become para Android
 [![Become](https://github.com/Becomedigital/become_ANDROID_SDK/blob/master/Video.png)](https://www.youtube.com/watch?v=ggpLGHeaFSg&ab_channel=BecomeDigital)
