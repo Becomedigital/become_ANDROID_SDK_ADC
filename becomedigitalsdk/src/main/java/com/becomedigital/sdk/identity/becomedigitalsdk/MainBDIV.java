@@ -122,7 +122,7 @@ public class MainBDIV extends AppCompatActivity implements AsynchronousTask {
         };
         getOnBackPressedDispatcher().addCallback(this, callback);
         // obtain your licence at http://microblink.com/login or contact us at http://help.microblink.com
-        MicroblinkSDK.setLicenseFile("con.become.mb.key", this);
+        MicroblinkSDK.setLicenseFile("com.become.mb.key", this);
 
         // use optimised way for transferring RecognizerBundle between activities, while ensuring
         // data does not get lost when Android restarts the scanning activity
@@ -256,7 +256,8 @@ public class MainBDIV extends AppCompatActivity implements AsynchronousTask {
                 if (responseIV.getResponseStatus() == ResponseIV.SUCCES) {
                     textInfoServer.setText(getResources().getString(R.string.text_progress_inteligence));
                     urlVGlobal = responseIV.getMessage();
-                    initCounDownGetData(responseIV.getMessage());
+                    returnResultSucces(responseIV);
+//                    initCounDownGetData(responseIV.getMessage());
                 } else {
                     setResultError(responseIV.getMessage());
                 }

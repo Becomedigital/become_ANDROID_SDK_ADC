@@ -148,7 +148,6 @@ public class ValidateStatusRest {
                     requestBody = addDocuments(isPassport, urlDocFront, config, selectedCountyCo2, urlDocBack, typeDocument);
                 }
 
-
                 OkHttpClient client = new OkHttpClient.Builder()
                         .addInterceptor(new UserAgentInterceptor(ua))
                         .connectTimeout(activity.getResources().getInteger(R.integer.timeOut), TimeUnit.SECONDS)

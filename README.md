@@ -18,7 +18,7 @@ Este es un espacio para conocer a cerca del SDK Android de Become para la valida
 			targetCompatibility = 1.8
 		     }
 		}
-				
+		
 2. El archivo build.grade debe contar con una referencia al repositorio:
 	
 		maven { url 'https://jitpack.io' }
@@ -37,20 +37,7 @@ Cómo primera medida es necesaria la implementacion de los siguientes módulos:
     implementation 'androidx.navigation:navigation-ui:2.3.0'
     implementation 'com.github.bumptech.glide:glide:4.10.0'
     implementation 'com.squareup.okhttp3:okhttp:4.2.2'
-    implementation('com.microblink:blinkid:5.16.0@aar') {
-        transitive = true
-    }
   
-### Agregar licencia requerida
-
-1. Agregar licencia en los assets del proyecto:
-
-<p align="center">
-  <img src="https://github.com/Becomedigital/become_ANDROID_SDK_ADC/blob/main/assets_key.png">
-</p>
-
- 2. El [`applicationId`](https://developer.android.com/studio/build/application-id?hl=es-419) del proyecto debe coincidir con la licencia asignada al cliente:
-
 ### Implementación de la SDK Become
        
  1. Abra el archivo build.gradle dentro del directorio del módulo de su aplicación e incluya las siguientes dependencias en el archivo build.gradle de su aplicación:
@@ -59,9 +46,9 @@ Cómo primera medida es necesaria la implementacion de los siguientes módulos:
 		 
 	Ejemplo:
 		 
-		 implementation 'com.github.becomedigital:become_ANDROID_SDK_ADC:4.4.5'
+		 implementation 'com.github.nelsonPena:become_ANDROID_SDK:3.1.0'
 		 
- 2. Al realizar los pasos anteriores, debe sincronizar su proyecto con gradle.
+ 3. Al realizar los pasos anteriores, debe sincronizar su proyecto con gradle.
  
  ## Inicialización de la SDK
 En el método onCreate () de su clase de aplicación, inicialice Become utilizando el siguiente fragmento de código:
@@ -329,7 +316,6 @@ Esta sección se encarga de proporcionar el fragmento de código para la impleme
 * **Tecnologias**
 	
 	Android 5 en adelante
-	gradle-7.0.2
 	
 ## Vídeo de integración del SDK Become para Android
 [![Become](https://github.com/Becomedigital/become_ANDROID_SDK/blob/master/Video.png)](https://www.youtube.com/watch?v=ggpLGHeaFSg&ab_channel=BecomeDigital)

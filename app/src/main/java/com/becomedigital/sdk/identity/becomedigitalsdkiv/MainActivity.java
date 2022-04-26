@@ -79,24 +79,31 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(final ResponseIV responseIV) {
                     String pathToFileSelfie = responseIV.getSelfiImageUrlLocal();
-                    File imgFileSelfie = new File (pathToFileSelfie);
-                    if (imgFileSelfie.exists ( )) {
-                        Bitmap myBitmap = BitmapFactory.decodeFile (imgFileSelfie.getAbsolutePath ( ));
-                        imgSelfie.setImageBitmap (myBitmap);
+                    if(pathToFileSelfie != null){
+                        File imgFileSelfie = new File (pathToFileSelfie);
+                        if (imgFileSelfie.exists ( )) {
+                            Bitmap myBitmap = BitmapFactory.decodeFile (imgFileSelfie.getAbsolutePath ( ));
+                            imgSelfie.setImageBitmap (myBitmap);
+                        }
+
                     }
 
                     String pathToFileFront = responseIV.getFrontImgUrlLocal();
-                    File imgFileFront = new File (pathToFileFront);
-                    if (imgFileFront.exists ( )) {
-                        Bitmap myBitmap = BitmapFactory.decodeFile (imgFileFront.getAbsolutePath ( ));
-                        imgFront.setImageBitmap (myBitmap);
+                    if(pathToFileFront != null){
+                        File imgFileFront = new File (pathToFileFront);
+                        if (imgFileFront.exists ( )) {
+                            Bitmap myBitmap = BitmapFactory.decodeFile (imgFileFront.getAbsolutePath ( ));
+                            imgFront.setImageBitmap (myBitmap);
+                        }
                     }
 
                     String pathToFileBack = responseIV.getBackImgUrlLocal();
-                    File imgFileBack = new File (pathToFileBack);
-                    if (imgFileBack.exists ( )) {
-                        Bitmap myBitmap = BitmapFactory.decodeFile (imgFileBack.getAbsolutePath ( ));
-                        imgBack.setImageBitmap (myBitmap);
+                    if(pathToFileBack != null){
+                        File imgFileBack = new File (pathToFileBack);
+                        if (imgFileBack.exists ( )) {
+                            Bitmap myBitmap = BitmapFactory.decodeFile (imgFileBack.getAbsolutePath ( ));
+                            imgBack.setImageBitmap (myBitmap);
+                        }
                     }
 
                     textResponse.setText(responseIV.toString());
