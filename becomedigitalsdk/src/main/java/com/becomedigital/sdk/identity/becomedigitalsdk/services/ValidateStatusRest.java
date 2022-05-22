@@ -38,14 +38,14 @@ import okhttp3.Response;
 public class ValidateStatusRest {
     /* access modifiers changed from: private */
     public static final String TAG = ValidateStatusRest.class.getSimpleName();
-    private final int USERRESPONSE = 0;
-    private final int INITAUTHRESPONSE = 1;
-    private final int ADDDATARESPONSE = 2;
-    private final int USERRESPONSEINITIAL = 3;
-    private final int SENDFACIALAUTH = 4;
-    private final int GETCONTRACT = 5;
-    private final int GETIMAGE = 6;
-
+    public static final int USERRESPONSE = 0;
+    public static final int INITAUTHRESPONSE = 1;
+    public static final int ADDDATARESPONSE = 2;
+    public static final int USERRESPONSEINITIAL = 3;
+    public static final int SENDFACIALAUTH = 4;
+    public static final int GETCONTRACT = 5;
+    public static final int GETIMAGE = 6;
+    public static final int ADDDATAVALIDATEDOCUMENT = 7;
 
     public void getAuth(final Activity activity, String clientID, String clientSecret, final AsynchronousTask asynchronousTask) {
 
@@ -214,6 +214,90 @@ public class ValidateStatusRest {
         });
     }
 
+    public void addDataToValidateDocumentServer(final Activity activity,
+                                                BDIVConfig config,
+                                                String frontImagePath,
+                                                String ua,
+                                                String accesToken,
+                                                final AsynchronousTask asynchronousTask) {
+        AsyncTask.execute(() -> {
+            try {
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity); // get url
+                String serverUrl = preferences.getString(SharedParameters.URL_ADD_DOCUMENT_DATA, SharedParameters.url_add_document_data);
+                File document = new File(frontImagePath);
+                Log.i("BECOME_IV_SDK", "userId: " + config.getUserId());
+                Log.i("BECOME_IV_SDK", "contractId: " + config.getContractId());
+                Log.i("BECOME_IV_SDK", "image file: " + frontImagePath);
+                RequestBody requestBody = new MultipartBody.Builder()
+                        .setType(MultipartBody.FORM)
+                        .addFormDataPart("contractId", config.getContractId())
+                        .addFormDataPart("userId", config.getUserId())
+                        .addFormDataPart("file", "file.jpg", RequestBody.create(MediaType.parse("image/jpg"), document))
+                        .build();
+
+                OkHttpClient client = new OkHttpClient.Builder()
+                        .addInterceptor(new UserAgentInterceptor(ua))
+                        .connectTimeout(activity.getResources().getInteger(R.integer.timeOut), TimeUnit.SECONDS)
+                        .readTimeout(activity.getResources().getInteger(R.integer.timeOut), TimeUnit.SECONDS)
+                        .writeTimeout(activity.getResources().getInteger(R.integer.timeOut), TimeUnit.SECONDS)
+                        .build();
+
+                Request request = new Request.Builder()
+                        .header("Authorization", "Bearer " + accesToken)
+                        .url(serverUrl)
+                        .post(requestBody)
+                        .build();
+
+                Call call = client.newCall(request);
+
+                call.enqueue(new Callback() {
+
+                    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        asynchronousTask.onErrorTransaction(e.getLocalizedMessage());
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        try {
+                            Log.i("BECOME_IV_SDK", "El servidor respondió.");
+                            String jsonData = response.body().string();
+                            JSONObject Jobject = new JSONObject(jsonData);
+                            Map<String, Object> map = new HashMap<String, Object>();
+
+                            if (Jobject.has("status_code")) {
+                                if (Jobject.getString("status_code").equals("OK")) {
+                                    map.put("liveness_score", Jobject.getString("liveness_score"));
+                                    map.put("quality_score", Jobject.getString("quality_score"));
+                                    map.put("liveness_probability", Jobject.getString("liveness_probability"));
+                                    map.put("status_code", Jobject.getString("status_code"));
+                                    asynchronousTask.onReceiveResultsTransactionDictionary(map, ResponseIV.SUCCES, ADDDATAVALIDATEDOCUMENT);
+                                } else {
+                                    map.put("mensaje", Jobject.toString());
+                                    asynchronousTask.onReceiveResultsTransactionDictionary(map, ResponseIV.ERROR, ADDDATAVALIDATEDOCUMENT);
+                                }
+                            } else {
+                                if (Jobject.has("msg")) {
+                                    map.put("mensaje", Jobject.getString("msg"));
+                                    asynchronousTask.onReceiveResultsTransactionDictionary(map, ResponseIV.ERROR, ADDDATAVALIDATEDOCUMENT);
+                                }
+                                if (Jobject.has("error")) {
+                                    map.put("mensaje", Jobject.getString("error"));
+                                    asynchronousTask.onReceiveResultsTransactionDictionary(map, ResponseIV.ERROR, ADDDATAVALIDATEDOCUMENT);
+                                }
+                            }
+
+                        } catch (JSONException e) {
+                            asynchronousTask.onErrorTransaction(e.getLocalizedMessage());
+                        }
+                    }
+                });
+            } catch (Exception e) {
+                asynchronousTask.onErrorTransaction(e.getLocalizedMessage());
+            }
+        });
+    }
 
     private RequestBody addDocuments(Boolean isPassport,
                                      String urlDocFront,

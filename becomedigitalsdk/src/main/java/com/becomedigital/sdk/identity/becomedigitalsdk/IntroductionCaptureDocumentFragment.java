@@ -30,11 +30,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.becomedigital.sdk.identity.becomedigitalsdk.models.BDIVConfig;
+import com.becomedigital.sdk.identity.becomedigitalsdk.models.ResponseIV;
 import com.becomedigital.sdk.identity.becomedigitalsdk.utils.CompressImage;
 import com.becomedigital.sdk.identity.becomedigitalsdk.utils.SharedParameters;
+import com.microblink.MicroblinkSDK;
 import com.microblink.entities.recognizers.RecognizerBundle;
 import com.microblink.entities.recognizers.blinkid.generic.BlinkIdCombinedRecognizer;
 import com.microblink.image.Image;
+import com.microblink.intent.IntentDataTransferMode;
 import com.microblink.uisettings.ActivityRunner;
 import com.microblink.uisettings.BlinkIdUISettings;
 
@@ -44,6 +47,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import static android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
@@ -69,7 +74,7 @@ public class IntroductionCaptureDocumentFragment extends Fragment {
     private BlinkIdCombinedRecognizer recognizer;
     private RecognizerBundle recognizerBundle;
     public static final int MY_BLINKID_REQUEST_CODE = 123;
-
+    Bundle bundle = new Bundle();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -150,13 +155,10 @@ public class IntroductionCaptureDocumentFragment extends Fragment {
         textCountry.setText(selectedCountry);
 
         //microblink
-
-        // we'll use Machine Readable Travel Document recognizer
         recognizer = new BlinkIdCombinedRecognizer();
         recognizer.setFullDocumentImageDpi(400);
+        recognizer.setSaveCameraFrames(true);
         recognizer.setReturnFullDocumentImage(true);
-//        recognizer.setEncodeFullDocumentImage();
-        // put our recognizer in bundle so that it can be sent via intent
         recognizerBundle = new RecognizerBundle(recognizer);
     }
 
@@ -291,86 +293,76 @@ public class IntroductionCaptureDocumentFragment extends Fragment {
         // update recogni zer results with scanned data
         recognizerBundle.loadFromIntent(data);
 
+        Map<String, Image> map = new HashMap<String, Image>();
         // you can now extract any scanned data from result, we'll just get primary id
         BlinkIdCombinedRecognizer.Result result = recognizer.getResult();
-        Image imageF =  Objects.requireNonNull(result.getFullDocumentFrontImage());
-        Image imageB = null;
 
-        if(result.getFullDocumentBackImage() != null){
-            imageB =  Objects.requireNonNull(result.getFullDocumentBackImage());
+        map.put("picCompressFront", Objects.requireNonNull(result.getFullDocumentFrontImage()));
+        map.put("picCompressBack", Objects.requireNonNull(result.getFullDocumentBackImage()));
+        map.put("imgFrontFull", Objects.requireNonNull(result.getFrontCameraFrame()));
+
+        for (Map.Entry<String, Image> image : map.entrySet()) {
+            run(image);
         }
-        run(imageF, imageB);
+        bundle.putBoolean("isFront", isFront);
+        bundle.putBoolean("isSelfie", false);
+        bundle.putString("selectedCountry", selectedCountry);
+        bundle.putString("selectedCountyCo2", selectedCountyCo2);
+        bundle.putSerializable("typeDocument", typeDocument);
+        bundle.putString("urlVideoFile", urlVideoFile);
+        bundle.putSerializable("config", config);
+        requireActivity().runOnUiThread(() -> {
+            findNavController(requireActivity(), R.id.nav_host_fragment).navigate(R.id.action_introductionDocumentFragment_to_previewImageFragment, bundle);
+        });
     }
 
     private void onScanCanceled() {
         Toast.makeText(requireActivity(), "Scan cancelled!", Toast.LENGTH_SHORT).show();
     }
 
-    public void run(Image bufferF, Image bufferB) {
-        String childF = "picCompressFront.jpg";
-        String childB = "picCompressBack.jpg";
-        File mFileF = new File(requireActivity().getExternalFilesDir(null), childF);
-        File mFileB = new File(requireActivity().getExternalFilesDir(null), childB);
-
-
-        Bitmap bF = bufferF.convertToBitmap();
-        Bitmap bB = null;
-
-        if(bufferB != null)
-            bB = bufferB.convertToBitmap();
-
-        FileOutputStream outputF = null;
-        FileOutputStream outputB = null;
+    public void run(Map.Entry<String, Image> image) {
+        File mFile = new File(requireActivity().getExternalFilesDir(null), image.getKey() + ".jpg");
+        Bitmap b = image.getValue().convertToBitmap();
+        FileOutputStream output = null;
         try {
-            outputF = new FileOutputStream(mFileF);
-            outputB = new FileOutputStream(mFileB);
-
-            boolean successF = bF.compress(Bitmap.CompressFormat.JPEG, 100, outputF);
-
-            if(bB != null)
-                bB.compress(Bitmap.CompressFormat.JPEG, 100, outputB);
+            output = new FileOutputStream(mFile);
+            assert b != null;
+            boolean successF = b.compress(Bitmap.CompressFormat.JPEG, 100, output);
+            b.compress(Bitmap.CompressFormat.JPEG, 100, output);
 
             if (!successF) {
-                com.microblink.util.Log.e(IntroductionCaptureDocumentFragment.class, "Failed to compress bitmap!");
+                com.microblink.util.Log.e(this, "Failed to compress bitmap!");
                 try {
-                    outputF.close();
-                    outputB.close();
+                    output.close();
                 } catch (IOException ignored) {
                 } finally {
-                    outputF = null;
-                    outputB = null;
+                    output = null;
                 }
-                boolean deleteSuccessF = new File(childF).delete();
-                boolean deleteSuccessB = new File(childB).delete();
-                if (!deleteSuccessF || !deleteSuccessB) {
-                    com.microblink.util.Log.e(IntroductionCaptureDocumentFragment.class, "Failed to delete {}", deleteSuccessF);
-                    com.microblink.util.Log.e(IntroductionCaptureDocumentFragment.class, "Failed to delete {}", deleteSuccessB);
+                boolean deleteSuccess = new File(image.getKey()).delete();
+                if (!deleteSuccess) {
+                    com.microblink.util.Log.e(this, "Failed to delete {}", deleteSuccess);
                 }
             }
 
-
-            Bundle bundle = new Bundle();
-            bundle.putBoolean("isFront", isFront);
-            bundle.putBoolean("isSelfie", false);
-            bundle.putString("selectedCountry", selectedCountry);
-            bundle.putString("selectedCountyCo2", selectedCountyCo2);
-            bundle.putSerializable("typeDocument", typeDocument);
-            bundle.putString("urlVideoFile", urlVideoFile);
-            bundle.putSerializable("config", config);
-            bundle.putString("urlDocBack", mFileB.getPath());
-            bundle.putString("urlDocFront", mFileF.getPath());
-            requireActivity().runOnUiThread(() -> {
-                findNavController(requireActivity(), R.id.nav_host_fragment).navigate(R.id.action_introductionDocumentFragment_to_previewImageFragment, bundle);
-            });
+            switch (image.getKey()){
+                case "picCompressFront":
+                    bundle.putString("urlDocFront", mFile.getPath());
+                    break;
+                case "picCompressBack":
+                    bundle.putString("urlDocBack", mFile.getPath());
+                    break;
+                case "imgFrontFull":
+                    ((MainBDIV) requireActivity()).setUrlDocFrontValidate(mFile.getPath());
+                    break;
+            }
 
         } catch (IOException e) {
             ((MainBDIV) requireActivity()).setResultError(e.getLocalizedMessage());
             // e.printStackTrace(); ( );
         } finally {
-            if (null != outputF && null != outputB) {
+            if (null != output) {
                 try {
-                    outputF.close();
-                    outputB.close();
+                    output.close();
                 } catch (IOException e) {
                     ((MainBDIV) requireActivity()).setResultError(e.getLocalizedMessage());
                     // e.printStackTrace(); ( );

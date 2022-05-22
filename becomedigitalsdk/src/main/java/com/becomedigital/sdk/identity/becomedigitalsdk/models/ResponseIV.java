@@ -50,6 +50,9 @@ public class ResponseIV implements Parcelable, Serializable {
     private String frontImgUrlLocal;
     private String backImgUrlLocal;
     private String selfiImageUrlLocal;
+    private String qualityScore;
+    private String livenessProbability;
+    private String livenessScore;
     private String message;
     private Integer responseStatus;
 
@@ -117,6 +120,9 @@ public class ResponseIV implements Parcelable, Serializable {
         frontImgUrlLocal = in.readString();
         backImgUrlLocal = in.readString();
         selfiImageUrlLocal = in.readString();
+        qualityScore = in.readString();
+        livenessProbability = in.readString();
+        livenessScore = in.readString();
         message = in.readString();
         if (in.readByte() == 0) {
             responseStatus = null;
@@ -191,6 +197,9 @@ public class ResponseIV implements Parcelable, Serializable {
         dest.writeString(frontImgUrlLocal);
         dest.writeString(backImgUrlLocal);
         dest.writeString(selfiImageUrlLocal);
+        dest.writeString(qualityScore);
+        dest.writeString(livenessProbability);
+        dest.writeString(livenessScore);
         dest.writeString(message);
         if (responseStatus == null) {
             dest.writeByte((byte) 0);
@@ -264,12 +273,145 @@ public class ResponseIV implements Parcelable, Serializable {
                 ", frontImgUrlLocal='" + frontImgUrlLocal + '\'' +
                 ", backImgUrlLocal='" + backImgUrlLocal + '\'' +
                 ", selfiImageUrlLocal='" + selfiImageUrlLocal + '\'' +
+                ", qualityScore='" + qualityScore + '\'' +
+                ", livenessProbability='" + livenessProbability + '\'' +
+                ", livenessScore='" + livenessScore + '\'' +
                 ", message='" + message + '\'' +
                 ", responseStatus=" + responseStatus +
                 '}';
     }
 
-    public ResponseIV(String id, String created_at, String company, String fullname, String dni_number, String birth, String document_type, String document_number, Boolean face_match, Boolean template, Boolean alteration, Boolean watch_list, String comply_advantage_result, String comply_advantage_url, String verification_status, String device_model, String os_version, String browser_major, String browser_version, String ua, String device_type, String device_vendor, String os_name, String browser_name, String issuePlace, String emissionDate, String ageRange, Integer savingAccountsCount, Integer financialIndustryDebtsCount, Integer solidarityIndustryDebtsCount, Integer serviceIndustryDebtsCount, Integer commercialIndustryDebtsCount, String ip, String frontImgUrl, String backImgUrl, String selfiImageUrl, String frontImgUrlLocal, String backImgUrlLocal, String selfiImageUrlLocal, String message, Integer responseStatus) {
+    public ResponseIV(String id,
+                      String created_at,
+                      String company,
+                      String fullname,
+                      String dni_number,
+                      String birth,
+                      String document_type,
+                      String document_number,
+                      Boolean face_match,
+                      Boolean template,
+                      Boolean alteration,
+                      Boolean watch_list,
+                      String comply_advantage_result,
+                      String comply_advantage_url,
+                      String verification_status,
+                      String device_model,
+                      String os_version,
+                      String browser_major,
+                      String browser_version,
+                      String ua,
+                      String device_type,
+                      String device_vendor,
+                      String os_name,
+                      String browser_name,
+                      String issuePlace,
+                      String emissionDate,
+                      String ageRange,
+                      Integer savingAccountsCount,
+                      Integer financialIndustryDebtsCount,
+                      Integer solidarityIndustryDebtsCount,
+                      Integer serviceIndustryDebtsCount,
+                      Integer commercialIndustryDebtsCount,
+                      String ip,
+                      String frontImgUrl,
+                      String backImgUrl,
+                      String selfiImageUrl,
+                      String frontImgUrlLocal,
+                      String backImgUrlLocal,
+                      String selfiImageUrlLocal,
+                      String qualityScore,
+                      String livenessProbability,
+                      String livenessScore,
+                      String message,
+                      Integer responseStatus) {
+        this.id = id;
+        this.created_at = created_at;
+        this.company = company;
+        this.fullname = fullname;
+        this.dni_number = dni_number;
+        this.birth = birth;
+        this.document_type = document_type;
+        this.document_number = document_number;
+        this.face_match = face_match;
+        this.template = template;
+        this.alteration = alteration;
+        this.watch_list = watch_list;
+        this.comply_advantage_result = comply_advantage_result;
+        this.comply_advantage_url = comply_advantage_url;
+        this.verification_status = verification_status;
+        this.device_model = device_model;
+        this.os_version = os_version;
+        this.browser_major = browser_major;
+        this.browser_version = browser_version;
+        this.ua = ua;
+        this.device_type = device_type;
+        this.device_vendor = device_vendor;
+        this.os_name = os_name;
+        this.browser_name = browser_name;
+        this.issuePlace = issuePlace;
+        this.emissionDate = emissionDate;
+        this.ageRange = ageRange;
+        this.savingAccountsCount = savingAccountsCount;
+        this.financialIndustryDebtsCount = financialIndustryDebtsCount;
+        this.solidarityIndustryDebtsCount = solidarityIndustryDebtsCount;
+        this.serviceIndustryDebtsCount = serviceIndustryDebtsCount;
+        this.commercialIndustryDebtsCount = commercialIndustryDebtsCount;
+        this.ip = ip;
+        this.frontImgUrl = frontImgUrl;
+        this.backImgUrl = backImgUrl;
+        this.selfiImageUrl = selfiImageUrl;
+        this.frontImgUrlLocal = frontImgUrlLocal;
+        this.backImgUrlLocal = backImgUrlLocal;
+        this.selfiImageUrlLocal = selfiImageUrlLocal;
+        this.qualityScore = qualityScore;
+        this.livenessProbability = livenessProbability;
+        this.livenessScore = livenessScore;
+        this.message = message;
+        this.responseStatus = responseStatus;
+    }
+
+    public ResponseIV(String id,
+                      String created_at,
+                      String company,
+                      String fullname,
+                      String dni_number,
+                      String birth,
+                      String document_type,
+                      String document_number,
+                      Boolean face_match,
+                      Boolean template,
+                      Boolean alteration,
+                      Boolean watch_list,
+                      String comply_advantage_result,
+                      String comply_advantage_url,
+                      String verification_status,
+                      String device_model,
+                      String os_version,
+                      String browser_major,
+                      String browser_version,
+                      String ua,
+                      String device_type,
+                      String device_vendor,
+                      String os_name,
+                      String browser_name,
+                      String issuePlace,
+                      String emissionDate,
+                      String ageRange,
+                      Integer savingAccountsCount,
+                      Integer financialIndustryDebtsCount,
+                      Integer solidarityIndustryDebtsCount,
+                      Integer serviceIndustryDebtsCount,
+                      Integer commercialIndustryDebtsCount,
+                      String ip,
+                      String frontImgUrl,
+                      String backImgUrl,
+                      String selfiImageUrl,
+                      String frontImgUrlLocal,
+                      String backImgUrlLocal,
+                      String selfiImageUrlLocal,
+                      String message,
+                      Integer responseStatus) {
         this.id = id;
         this.created_at = created_at;
         this.company = company;
@@ -626,6 +768,30 @@ public class ResponseIV implements Parcelable, Serializable {
 
     public void setSelfiImageUrlLocal(String selfiImageUrlLocal) {
         this.selfiImageUrlLocal = selfiImageUrlLocal;
+    }
+
+    public String getQualityScore() {
+        return qualityScore;
+    }
+
+    public void setQualityScore(String qualityScore) {
+        this.qualityScore = qualityScore;
+    }
+
+    public String getLivenessProbability() {
+        return livenessProbability;
+    }
+
+    public void setLivenessProbability(String livenessProbability) {
+        this.livenessProbability = livenessProbability;
+    }
+
+    public String getLivenessScore() {
+        return livenessScore;
+    }
+
+    public void setLivenessScore(String livenessScore) {
+        this.livenessScore = livenessScore;
     }
 
     public String getMessage() {
