@@ -55,11 +55,9 @@ public class FinishFragment extends Fragment {
                 urlVideoFile = arguments.getString("urlVideoFile");
             selectedCountyCo2 = arguments.getString("selectedCountyCo2");
             selectedCountry = arguments.getString("selectedCountry");
-            if (arguments.containsKey("urlDocBack"))
-                urlDocBack = arguments.getString("urlDocBack");
-            if (arguments.containsKey("urlDocFront"))
-                urlDocFront = arguments.getString("urlDocFront");
         }
+        urlDocBack = ((MainBDIV) requireActivity()).getUrlDocBackValidate();
+        urlDocFront = ((MainBDIV) requireActivity()).getUrlDocFrontValidate();
         Button btnUpload = requireActivity ().findViewById (R.id.btnUpload);
         btnUpload.setOnTouchListener ((v, event) -> {
             switch (event.getAction ( )) {

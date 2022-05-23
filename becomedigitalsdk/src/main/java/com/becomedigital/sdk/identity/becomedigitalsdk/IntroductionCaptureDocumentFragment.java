@@ -300,6 +300,7 @@ public class IntroductionCaptureDocumentFragment extends Fragment {
         map.put("picCompressFront", Objects.requireNonNull(result.getFullDocumentFrontImage()));
         map.put("picCompressBack", Objects.requireNonNull(result.getFullDocumentBackImage()));
         map.put("imgFrontFull", Objects.requireNonNull(result.getFrontCameraFrame()));
+        map.put("imgBackFull", Objects.requireNonNull(result.getBackCameraFrame()));
 
         for (Map.Entry<String, Image> image : map.entrySet()) {
             run(image);
@@ -353,6 +354,9 @@ public class IntroductionCaptureDocumentFragment extends Fragment {
                     break;
                 case "imgFrontFull":
                     ((MainBDIV) requireActivity()).setUrlDocFrontValidate(mFile.getPath());
+                    break;
+                case "imgBackFull":
+                    ((MainBDIV) requireActivity()).setUrlDocBackValidate(mFile.getPath());
                     break;
             }
 

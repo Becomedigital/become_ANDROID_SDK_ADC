@@ -54,5 +54,4 @@
     <string name="text_error_path_image_pick">No se puede obtener la ruta del archivo</string>
     <string name="text_empty_balance">Saldo insuficiente</string>
     <string name="text_load_file">Estamos por terminar...</string>
-
 </resources>

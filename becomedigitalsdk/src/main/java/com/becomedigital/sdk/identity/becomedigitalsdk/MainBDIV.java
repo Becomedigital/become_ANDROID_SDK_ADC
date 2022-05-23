@@ -63,6 +63,7 @@ public class MainBDIV extends AppCompatActivity implements AsynchronousTask {
     private String access_token;
     private ResponseIV responseIVAuth;
     private String urlDocFrontValidate;
+    private String urlDocBackValidate;
 
     private ImageButton imgBtnCancel;
     private ImageButton imgBtnBack;
@@ -130,6 +131,14 @@ public class MainBDIV extends AppCompatActivity implements AsynchronousTask {
 
     public void setUrlDocFrontValidate(String urlDocFrontValidate) {
         this.urlDocFrontValidate = urlDocFrontValidate;
+    }
+
+    public String getUrlDocBackValidate() {
+        return urlDocBackValidate;
+    }
+
+    public void setUrlDocBackValidate(String urlDocBackValidate) {
+        this.urlDocBackValidate = urlDocBackValidate;
     }
 
     public BDIVConfig getConfig() {
