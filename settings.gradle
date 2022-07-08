@@ -1,2 +1,0 @@
-include ':app', ':becomedigitalsdk'
-rootProject.name='BecomeDigitalSDKIV'
