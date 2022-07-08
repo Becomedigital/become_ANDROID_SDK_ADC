@@ -8,28 +8,36 @@ Este es un espacio para conocer a cerca del SDK Android de Become para la valida
 
  1. Dentro del archivo build.gradle debe agregar las siguientes modificaciones:
 
-	         defaultConfig {
-	           minSdkVersion 21
-	         }
-		 
-		 android {
-		    compileOptions {
-		        sourceCompatibility = 1.8
-			targetCompatibility = 1.8
-		     }
-		}
-				
-2. El archivo build.grade debe contar con una referencia al repositorio:
 	
-		maven { url 'https://jitpack.io' }
+
 
 <p align="center">
   <img src="https://github.com/Becomedigital/become_ANDROID_SDK/blob/master/build_gradle.png">
 </p>
 
-### Implementación de módulos requeridos
-Cómo primera medida es necesaria la implementacion de los siguientes módulos:
+	allprojects {
+	    repositories {
+		google()
+		jcenter()
+		maven { url 'https://maven.microblink.com' }
+	    }
+	}
 
+### Implementación de módulos requeridos
+Cómo primera medida es necesaria la implementacion de los siguientes módulos y configuraciones:
+
+    defaultConfig {
+     minSdkVersion 21
+    }
+		 
+    android {
+      compileOptions {
+        sourceCompatibility = 1.8
+	targetCompatibility = 1.8
+      }
+    }
+
+    implementation fileTree(dir: 'libs', include: ['*.aar'])
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -53,13 +61,11 @@ Cómo primera medida es necesaria la implementacion de los siguientes módulos:
 
 ### Implementación de la SDK Become
        
- 1. Abra el archivo build.gradle dentro del directorio del módulo de su aplicación e incluya las siguientes dependencias en el archivo build.gradle de su aplicación:
- 
-		 implementation 'com.github.Becomedigital:become_ANDROID_SDK:LATEST_VERSION'
-		 
-	Ejemplo:
-		 
-		 implementation 'com.github.becomedigital:become_ANDROID_SDK_ADC:4.4.8'
+ 1. Descargue la dependencia `becomedigitalsdk.aar` y agréguela en las dependencias binarias locales de su proyecto.
+
+<p align="center">
+  <img src="https://github.com/Becomedigital/become_Android_SDK_Document_Autentication/blob/main/libs.png">
+</p>
 		 
  2. Al realizar los pasos anteriores, debe sincronizar su proyecto con gradle.
  
