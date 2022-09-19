@@ -134,44 +134,11 @@ En este apartado encontrará la respuesta a partir de la validación del proceso
 
 **1. Estructura encargada de la definición del estado  de validación ***exitoso***:**
 
-	    @Override
-        public void onSuccess(final ResponseIV responseIV) {  
-            String id = responseIV.getId ( );
-            String created_at = responseIV.getCreated_at ( );
-            String company = responseIV.getCompany ( );
-            String fullname = responseIV.getFullname ( );
-            String birth = responseIV.getBirth ( );
-            String document_type = responseIV.getDocument_type ( );
-            String document_number = responseIV.getDocument_number ( );
-            Boolean face_match = responseIV.getFace_match ( );
-            Boolean template = responseIV.getTemplate ( );
-            Boolean alteration = responseIV.getAlteration ( );
-            Boolean watch_list = responseIV.getWatch_list ( );
-            String comply_advantage_result = responseIV.getComply_advantage_result ( );
-            String comply_advantage_url = responseIV.getComply_advantage_url ( );
-            String verification_status = responseIV.getVerification_status ( );
-            String message = responseIV.getMessage ( );
-            Integer responseStatus = responseIV.getResponseStatus ( );
-            String textFinal = "id: "  +
-                    "\ncreated_at: " + created_at +
-                    "\ncompany: " + company +
-                    "\nfullname: " + fullname +
-                    "\nbirth: " + birth +
-                    "\ndocument_type: " + document_type +
-                    "\ndocument_number: " + document_number +
-                    "\nface_match: " + face_match +
-                    "\ntemplate: " + template +
-                    "\nalteration: " + alteration +
-                    "\nwatch_list: " + watch_list +
-                    "\ncomply_advantage_result: " + comply_advantage_result +
-                    "\ncomply_advantage_url: " + comply_advantage_url +
-                    "\nverification_status: " + verification_status +
-                    "\nmessage: " + message +
-                    "\nresponseStatus: " + responseStatus;
+	@Override
+	public void onSuccess(final ResponseIV responseIV) {
+	    textResponse.setText(responseIV.toString());
+	}
 
-            Log.d ("responseIV", textFinal);
-        }
-	
 **2. Estructura encargada de la definición del estado  de validación ***cancelado*** por el usuario:**
 
 	@Override  
@@ -189,83 +156,15 @@ En este apartado encontrará la respuesta a partir de la validación del proceso
 ## Estructura para el retorno de la información
 Los siguientes son los parámetros que permiten el retorno de la información capturada por el sistema.
 
-	    String id;
-	    String created_at;
-	    String company;
-	    String fullname;
-	    String birth;
-	    String document_type;
-	    String document_number;
-	    Boolean face_match;
-	    Boolean template;
-	    Boolean alteration;
-	    Boolean watch_list;
-	    String comply_advantage_result;
-	    String comply_advantage_url;
-	    String verification_status;
-	    String device_model;
-	    String os_version;
-	    String browser_major;
-	    String browser_version;
-	    String ua;
-	    String device_type;
-	    String device_vendor;
-	    String os_name;
-	    String browser_name;
-	    String issuePlace;
-	    String emissionDate;
-	    String ageRange;
-	    Integer savingAccountsCount;
-	    Integer financialIndustryDebtsCount;
-	    Integer solidarityIndustryDebtsCount;
-	    Integer serviceIndustryDebtsCount;
-	    Integer commercialIndustryDebtsCount;
-	    String ip;
-	    String frontImgUrl;
-	    String backImgUrl;
-	    String selfiImageUrl;
-	    String message;
-	    Integer responseStatus;
+		private String urlResult;
+		private String message;
+		private Integer responseStatus;
 
 Ejemplo de la respuesta:
 
-	public void onSuccess(final ResponseIV responseIV) {  
-	  String id = responseIV.getId ( );  
-		String created_at = responseIV.getCreated_at ( );  
-		String company = responseIV.getCompany ( );  
-		String fullname = responseIV.getFullname ( );  
-		String birth = responseIV.getBirth ( );  
-		String document_type = responseIV.getDocument_type ( );  
-		String document_number = responseIV.getDocument_number ( );  
-		Boolean face_match = responseIV.getFace_match ( );  
-		Boolean template = responseIV.getTemplate ( );  
-		Boolean alteration = responseIV.getAlteration ( );  
-		Boolean watch_list = responseIV.getWatch_list ( );  
-		String comply_advantage_result = responseIV.getComply_advantage_result ( );  
-		String comply_advantage_url = responseIV.getComply_advantage_url ( );  
-		String verification_status = responseIV.getVerification_status ( );  
-		String message = responseIV.getMessage ( );  
-		Integer responseStatus = responseIV.getResponseStatus ( );  
-		String textFinal = "id: " +  
-             "\ncreated_at: " + created_at +  
-             "\ncompany: " + company +  
-             "\nfullname: " + fullname +  
-             "\nbirth: " + birth +  
-             "\ndocument_type: " + document_type +  
-             "\ndocument_number: " + document_number +  
-             "\nface_match: " + face_match +  
-             "\ntemplate: " + template +  
-             "\nalteration: " + alteration +  
-             "\nwatch_list: " + watch_list +  
-             "\ncomply_advantage_result: " + comply_advantage_result +  
-             "\ncomply_advantage_url: " + comply_advantage_url +  
-             "\nverification_status: " + verification_status +  
-             "\nmessage: " + message +  
-             "\nresponseStatus: " + responseStatus;  
-  
-	  textResponse.setText (textFinal);  
-	  Log.d ("responseIV", textFinal);  
-	}
+		public void onSuccess(final ResponseIV responseIV) {  
+			textResponse.setText(responseIV.toString());
+		}
 
 ## Implementación del proceso
 Esta sección se encarga de proporcionar el fragmento de código para la implementación final del proceso.
