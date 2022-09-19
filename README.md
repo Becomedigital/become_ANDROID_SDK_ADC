@@ -96,7 +96,7 @@ En el método onCreate () de su clase de aplicación, inicialice Become utilizan
                     contractId,  
                     validatiopnTypes,  
                     true,  
-                    null,
+                    null, // Data imagen logo cliente
 		    userId
             ));
 	  }
