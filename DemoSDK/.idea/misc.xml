@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="../../../.gradle/caches/transforms-3/f67ce3db061593dfee3062ace9bda73e/transformed/jetified-becomedigitalsdk/res/layout/activity_main_bdiv.xml" value="0.13958333333333334" />
+        <entry key="app/src/main/res/drawable/ic_baseline_arrow_back_black_24.xml" value="0.332" />
+        <entry key="app/src/main/res/layout/activity_home.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_identification.xml" value="0.39166666666666666" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.15208333333333332" />
+        <entry key="app/src/main/res/layout/activity_response 2.xml" value="0.3765625" />
+        <entry key="app/src/main/res/layout/activity_response.xml" value="0.35279187817258884" />
+        <entry key="app/src/main/res/layout/activity_terms.xml" value="0.3582474226804124" />
+        <entry key="app/src/main/res/layout/activity_timer.xml" value="0.39166666666666666" />
+        <entry key="app/src/main/res/layout/card_back.xml" value="0.32860520094562645" />
+        <entry key="app/src/main/res/layout/card_front.xml" value="0.2574074074074074" />
+        <entry key="app/src/main/res/layout/identification_fragment.xml" value="0.29791666666666666" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

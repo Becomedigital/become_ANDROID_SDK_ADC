@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">DemoSDk</string>
+    <string name="txt_start">Comenzar</string>
+    <string name="omit">Omitir</string>
+    <string name="terms_text">Acepto los términos y condiciones</string>
+    <string name="text_continue">Continuar</string>
+    <string name="text_btn_home">Autenticarme</string>
+    <string name="text_body">Ingresa el número de la identificación con la cual vas a hacer tu autenticación</string>
+    <string name="text_tittle_home">Antes de empezar</string>
+    <string name="text_revision_result">Revisión de tipo de documento</string>
+    <string name="text_tittle_result">Datos de la verificación</string>
+    <string name="text_bio_result">Biometría y prueba de vida</string>
+    <string name="text_detection_result">Detección de alteraciones</string>
+    <string name="text_list_result">Listas negras</string>
+    <string name="text_sub_tittle_result">Resultado de la validación:</string>
+    <string name="text_cancelk_by_user">Cancelar por usuario</string>
+    <string name="text_finish">Terminar</string>
+    <string name="milisecons_timer">1000</string>
+    <string name="secons_timer_1d">30</string>
+    <string name="qrTimeInvalid">Reactivar código QR</string>
+    <string name="date_format_qr">dd/MM/yyyy HH:mm:ss</string>
+    <string name="text_tittle_cc">CC</string>
+    <string name="text_tittle_name">URL Autenticación:</string>
+    <string name="text_tittle_date">Fecha Nacimiento:</string>
+</resources>

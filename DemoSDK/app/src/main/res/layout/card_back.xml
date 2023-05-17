@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imgBack"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/back_carne" />
+
+    <ImageView
+        android:id="@+id/imgQRCode"
+        android:layout_width="250dp"
+        android:layout_height="240dp"
+        android:layout_alignStart="@+id/imgBack"
+        android:layout_alignLeft="@+id/imgBack"
+        android:layout_alignTop="@+id/imgBack"
+        android:layout_alignEnd="@+id/imgBack"
+        android:layout_alignRight="@+id/imgBack"
+        android:layout_centerHorizontal="true"
+        app:layout_constraintBottom_toBottomOf="@+id/imgBack"
+        app:layout_constraintEnd_toEndOf="@+id/imgBack"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="@+id/imgBack"
+        app:layout_constraintTop_toTopOf="@+id/imgBack"
+        app:layout_constraintVertical_bias="0.406" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
