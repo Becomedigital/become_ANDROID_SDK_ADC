@@ -228,6 +228,23 @@ Esta sección se encarga de proporcionar el fragmento de código para la impleme
           });  	  
         }  
       }
+      
+## Proyecto demo
+Dentro del proyecto demo en la actividad Home `HomeActivity` y en identificación `IdentificationActivity` reemplazar las credenciales de la SDK con las suministradas por nuestro equipo.
+      
+	String validatiopnTypes = "VIDEO/PASSPORT/DNI/LICENSE";
+	String clientSecret = "";
+	String clientId = "";
+	String contractId = "";
+	BecomeResponseManager.getInstance().startAutentication(IdentificationActivity.this,
+		new BDIVConfig(clientId,
+			clientSecret,
+			contractId,
+			validatiopnTypes,
+			true,
+			null,
+			idUser
+	));
 
 ## Requerimientos
 
