@@ -114,11 +114,12 @@ Los siguientes parámetros son necesarios para la activación de la SDK por lo t
  
 Parámetro | Valor
 ------------ | -------------
-validatiopnTypes | ""
-clientSecret | ""
-clientId | ""
-contractId  | ""
-userID  | ""
+documetTypes | DocumetType[]
+useFacialAuth | Boolean
+clientSecret | String
+clientId | String
+contractId  | String
+userID  | String
 
 
 Mostrará el siguiente error por consola:
