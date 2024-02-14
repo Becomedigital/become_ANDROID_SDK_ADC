@@ -82,24 +82,29 @@ En el método onCreate () de su clase de aplicación, inicialice Become utilizan
 	    super.onCreate (savedInstanceState);
 	    setContentView (R.layout.activity_main);
 
-        //Parámetros de configuración: El valor de los parámetros debe ser solicitado al contratar el servicio
-        String validatiopnTypes =  "PASSPORT/LICENSE/DNI/VIDEO" ;  
+        //Parámetros de configuración: El valor de los parámetros debe ser solicitado al contratar el servicio  
         String clientSecret =  "your client Secret here" ;  
         String clientId =  "your client ID here" ;  
         String contractId =  "your contract ID here";
         String userId = "your user ID here"
+        DocumetType[] documetTypes = {
+                DocumetType.PASSPORT,
+                DocumetType.DNI,
+                DocumetType.LICENSE
+        };
 	
-        //Instancia para iniciar la interfaz
-        BecomeResponseManager.getInstance ( ).startAutentication (MainActivity.this,  
-            new BDIVConfig (clientId,  
-                    clientSecret,  
-                    contractId,  
-                    validatiopnTypes,  
-                    true,  
-                    null, // Data imagen logo cliente
-		    userId
+        BecomeResponseManager.getInstance().startAutentication(MainActivity.this,
+            new BDIVConfig(
+                    clientId,
+                    clientSecret,
+                    contractId,
+                    true, // Indica si se debe utilizar la autenticación facial
+                    documetTypes, // Tipos de documentos permitidos
+                    true, // Indica si se debe utilizar el modo de captura de documentos
+                    userId, // Identificador único del usuario
+                    byteArray // Data imagen logo cliente
             ));
-	  }
+	  
 	}
 
 ## Posibles Errores
