@@ -122,19 +122,6 @@ contractId  | String
 userID  | String
 
 
-Mostrará el siguiente error por consola:
-
-    parameters cannot be empty
-
-**2. Video cómo único parámetro**
-El atributo ***validationTypes*** no puede contener como único valor el parámetro ***VIDEO***
-
-    validationTypes: "VIDEO"
-
-Mostrará el siguiente error por consola:
-
-    the process cannot be initialized with video only
-
 ## Validación del proceso
 En este apartado encontrará la respuesta a partir de la validación del proceso realizado por la SDK y las estructuras internas que contienen los atributos encargados de capturar la información dada por el usuario:
 
@@ -175,82 +162,58 @@ Ejemplo de la respuesta:
 ## Implementación del proceso
 Esta sección se encarga de proporcionar el fragmento de código para la implementación final del proceso.
 
-	public class MainActivity extends AppCompatActivity {  
-          	    private BecomeCallBackManager mCallbackManager = BecomeCallBackManager.createNew ( );  
-        	  
-        	  @SuppressLint("WrongThread")  
-        	  @Override  
-        	  protected void onCreate(Bundle savedInstanceState) {  
-        	        super.onCreate (savedInstanceState);  
-        	        setContentView (R.layout.activity_main);  
-        	  
-        	  Bitmap decodeResource = BitmapFactory.decodeResource (getResources ( ), R.drawable.become_icon);  
-        	  ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream ( );  
-        	  
-        	  decodeResource.compress (Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);  
-        	  byte[] byteArray = byteArrayOutputStream.toByteArray ( );  
-        	  
-        	  TextView textResponse = findViewById (R.id.textReponse);  
-        	  EditText textClientSecret = findViewById (R.id.cliensecretText);  
-        	  EditText textClientId = findViewById (R.id.clienidText);  
-        	  EditText textContractId = findViewById (R.id.ContractIdText);  
-        	  EditText textVlidationType = findViewById (R.id.validationType);  
-        	  Button btnAut = findViewById (R.id.btnAuth);  
-        	  btnAut.setOnClickListener (view -> {  
-        	  String validatiopnTypes = textVlidationType.getText ( ).toString ( ).isEmpty ( ) ? "VIDEO" : textVlidationType.getText ( ).toString ( );  
-        	  String clientSecret = textClientSecret.getText ( ).toString ( ).isEmpty ( ) ? "FKLDM63GPH89TISBXNZ4YJUE57WRQA25" : textClientSecret.getText ( ).toString ( );  
-        	  String clientId = textClientId.getText ( ).toString ( ).isEmpty ( ) ? "acc_demo" : textClientId.getText ( ).toString ( );  
-        	  String contractId = textContractId.getText ( ).toString ( ).isEmpty ( ) ? "2" : textContractId.getText ( ).toString ( );  
-        	  Date currentTime = Calendar.getInstance().getTime();
-		  SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMddHHmmssSSS", Locale.getDefault());
-		  String inActiveDate = format1.format(currentTime); // identificador de la transacción // identificador de la transacción
-        	  
-		  BecomeResponseManager.getInstance ( ).startAutentication (MainActivity.this,  
-        	      new BDIVConfig (clientId,  
-        	      clientSecret,  
-        	      contractId,  
-        	      validatiopnTypes,  
-        	      true,  
-        	      byteArray,
-		      inActiveDate
-        	  ));  
-            
-        	  BecomeResponseManager.getInstance ( ).registerCallback (mCallbackManager, new BecomeInterfaseCallback ( ) {  
-        	  
-		  @Override  	  
-              public void onSuccess(final ResponseIV responseIV) {  
-        	  // Respuesta SDK
-	      }  
-        	  
-              @Override  
-              public void onCancel() {  
-                  // Respuesta cancelado por usuario
-              }  
-        	  
-              @Override  
-              public void onError(LoginError pLoginError) {  
-                  // Respuesta error en el proceso
-              }        
-          });  	  
+	 public class MainActivity extends AppCompatActivity {  
+	    private BecomeCallBackManager mCallbackManager = BecomeCallBackManager.createNew ( );  
+	  
+	  @SuppressLint("WrongThread")  
+	  @Override  
+	  protected void onCreate(Bundle savedInstanceState) {  
+		super.onCreate (savedInstanceState);  
+		setContentView (R.layout.activity_main);  
+	  
+		String clientSecret =  "your client Secret here" ;  
+		String clientId =  "your client ID here" ;  
+		String contractId =  "your contract ID here";
+		String userId = "your user ID here"
+		DocumetType[] documetTypes = {
+			DocumetType.PASSPORT,
+			DocumetType.DNI,
+			DocumetType.LICENSE
+		};
+		
+		  
+		BecomeResponseManager.getInstance().startAutentication(MainActivity.this,
+			new BDIVConfig(
+			clientId,
+			clientSecret,
+			contractId,
+			true, // Indica si se debe utilizar la autenticación facial
+			documetTypes, // Tipos de documentos permitidos
+			true, // Indica si se debe utilizar el modo de captura de documentos
+			userId, // Identificador único del usuario
+			byteArray // Data imagen logo cliente
+		));
+    
+		BecomeResponseManager.getInstance ( ).registerCallback (mCallbackManager, new BecomeInterfaseCallback ( ) {  
+		  
+		      @Override  	  
+		      public void onSuccess(final ResponseIV responseIV) {  
+			  // Respuesta SDK
+		      }  
+			  
+		      @Override  
+		      public void onCancel() {  
+			  // Respuesta cancelado por usuario
+		      }  
+			  
+		      @Override  
+		      public void onError(LoginError pLoginError) {  
+			  // Respuesta error en el proceso
+		      }        
+		});  	  
         }  
       }
       
-## Proyecto demo
-Dentro del proyecto demo en la actividad Home `HomeActivity` y en identificación `IdentificationActivity` reemplazar las credenciales de la SDK con las suministradas por nuestro equipo.
-      
-	String validatiopnTypes = "VIDEO/PASSPORT/DNI/LICENSE";
-	String clientSecret = "";
-	String clientId = "";
-	String contractId = "";
-	BecomeResponseManager.getInstance().startAutentication(IdentificationActivity.this,
-		new BDIVConfig(clientId,
-			clientSecret,
-			contractId,
-			validatiopnTypes,
-			true,
-			null,
-			idUser
-	));
 
 ## Requerimientos
 
@@ -258,7 +221,6 @@ Dentro del proyecto demo en la actividad Home `HomeActivity` y en identificació
 	
 	Android 5 en adelante
 	gradle-7.0.2
-	
-## Vídeo de integración del SDK Become para Android
-[![Become](https://github.com/Becomedigital/become_ANDROID_SDK/blob/master/Video.png)](https://www.youtube.com/watch?v=ggpLGHeaFSg&ab_channel=BecomeDigital)
+
+ 
 
